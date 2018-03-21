@@ -1,2 +1,2 @@
 # WPI_CourseSearchEngine
-This project is aim to help students in WPI search courses more efficient using modern concepts related to search engine.
+This project is aim to help students in WPI search courses more efficient using techniques similar to a modern search engine.
