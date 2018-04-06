@@ -40,6 +40,6 @@ queries to see if the performance is improving over time.<br>
 
 ## VI. Schedule
 3/18 proposal<br>
-3/28 frond-end, back-end, database integration
-4/15 system complete
+3/28 frond-end, back-end, database integration<br>
+4/15 system complete<br>
 4/24 presentation
