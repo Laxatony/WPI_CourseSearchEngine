@@ -48,8 +48,8 @@ def main():
     else:
         result = []
 
-    # jsonFormat = json.dumps(result) # json to string
-    # print(jsonFormat)
+    jsonFormat = json.dumps(result) # json to string
+    print(jsonFormat)
 
 #start process
 if __name__ == '__main__':
