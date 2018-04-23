@@ -211,7 +211,7 @@ def getExampleDatabase():
     courses.append(course3)
 
     return courses
-courseDatabase = getExampleDatabase()
+# courseDatabase = getExampleDatabase()
 
 # # Run TFIDF
 # coursesTFIDF = TFIDF()

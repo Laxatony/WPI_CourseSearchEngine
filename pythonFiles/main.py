@@ -3,26 +3,12 @@ from courseInfo import CourseInfo
 from courseTFIDF import TFIDF
 from WpiDynamoDBController import WpiDynamoDBController
 
-def searchCourses(text):
-    # search courses by input text
-    courses = []
-    return courses
-
-def searchCourses_byTeacher(text):
-    courses = []
-    return courses
-
-def coursesToJSON(courses):
-    jsonResult = {}
-    return jsonResult
-
 def main():
 
     data = json.loads(sys.argv[1]) # string to json
     # data = {'func': 'search_courses', 'query': 'machine'}
 
     # with open('tmp_data.txt', 'w') as outfile:
-    #     outfile.write('fffff')
     #     # json.dump(data, outfile)
     # outfile.close()
     
