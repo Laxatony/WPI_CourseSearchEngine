@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body{background: rgb(231, 233, 94); color: #fff; padding: 10px;}
+        .search_area {
+            width: calc(100%-20px);
+            height: 60px;
+            background-color: rgb(196, 199, 245);
+            color: rgb(0, 0, 0);
+            padding: 5px;}
+        .course_list {
+            width: 250px;
+            height: calc(100vh - 60px);
+            float: left;
+            background-color: rgb(209, 243, 193);
+            padding: 5px;
+            overflow-y:scroll;}
+        .course_description {
+            width: calc(100% - 270px);
+            height: calc(100vh - 60px);
+            margin-left: 210px;
+            background-color: rgb(255, 255, 255);
+            color: rgb(105, 17, 17);
+            padding: 5px;
+            overflow-y:scroll;}
+        .course_bref {
+            height:100px;
+            margin-bottom: 5px;
+            background-color: rgb(248, 248, 248);
+            color: rgb(12, 12, 15);
+            font-size: small;
+            border-style: hidden;
+            word-wrap: break-word;
+            cursor: pointer;}
+    
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>WPI Course Search System</title>
+</head>
+<body>
+        <div class="search_area">
+            Search: <input id="queryBox" size="49"><br><br>
+            <button onclick="search_courses()">Search Courses</button>
+        </div>
+        <div id="course_list" class="course_list">
+            <p>course list</p>
+        </div>
+        <div id="course_description" class="course_description">
+            <p>course Description</p>
+        </div>
+
+        <script src="client.js"></script>
+</body>
