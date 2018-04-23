@@ -19,7 +19,13 @@ ws.on('connection', function(w){
             PythonShell.run('pythonFiles/main.py', options, function (err, results) {
                 console.log('3Receive object from client: ' + receieveObj.func);
   
-                var data = JSON.parse(results); //string to json
+                try {
+                    var data = JSON.parse(results);
+                } catch (e) {
+                    console.log('empty result');
+                    return;
+                }
+
                 //data = JSON.stringify(data);
                 console.log('4Receive object from client: ' + receieveObj.func);
   

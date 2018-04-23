@@ -14,18 +14,7 @@ connection.onerror = function (error) {
 connection.onmessage = function (e) {
     var res = JSON.parse(e.data);
 
-    if(res['func'] == 'retrieveTimeStamp') {
-        var resultString = 'Timestamp is ' + res['time'];
-
-        document.getElementById("demo").innerHTML = resultString;
-    }
-    else if(res['func'] == 'sum2') {
-        var x = 0;
-        var resultString = res['data']['num1'] + ' + ' + res['data']['num2'] + ' is ' + res['data']['result'][x];
-
-        document.getElementById("demo").innerHTML = resultString;
-    }
-    else if(res['func'] == 'search_courses') {
+    if(res['func'] == 'search_courses') {
         gCourses = res['data'];
         update_courseList();
     }
@@ -64,6 +53,7 @@ function update_courseList() {
         
         //Edit content in list blocks
         stringBuf = ""
+        stringBuf += (index+1) + ". "
         stringBuf += course['title']
         stringBuf += "<br>"
         stringBuf += '____________________<br>'

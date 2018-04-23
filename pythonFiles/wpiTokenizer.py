@@ -33,6 +33,9 @@ class Tokenizer:
             tokens_.append(re.sub('\W', '', i))   #keep only a-zA-Z0-9
         tokens = tokens_
 
+        # 3.remove empty elements
+        tokens = list(filter(None, tokens))
+
         return tokens
 
 # example ============================================

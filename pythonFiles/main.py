@@ -1,5 +1,6 @@
 import sys, json, numpy as np
 from courseInfo import CourseInfo
+from courseTFIDF import TFIDF
 from WpiDynamoDBController import WpiDynamoDBController
 
 def searchCourses(text):
@@ -18,23 +19,28 @@ def coursesToJSON(courses):
 def main():
 
     data = json.loads(sys.argv[1]) # string to json
-    # data = {"func": "search_courses", "query": ""}
+    # data = {'func': 'search_courses', 'query': 'machine'}
 
     # with open('tmp_data.txt', 'w') as outfile:
-    #      json.dump(data, outfile)
+    #     outfile.write('fffff')
+    #     # json.dump(data, outfile)
+    # outfile.close()
     
     result = [] 
-    if data['func'] == "search_courses":
+    if data['func'] == 'search_courses':
         query = data['query']
         
         courseCIDs = []
-        # courseCIDs = function_call(query)
+        mySearch = TFIDF()
+        courseCIDs = mySearch.getRankedList(query)
+        # print('cids')
+        # print(courseCIDs)
 
         myDB = WpiDynamoDBController()
 
         if courseCIDs:
             courses = myDB.get_courses_by_cids(courseCIDs)
-        else:
+        # else:
             # courseCIDs = myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '501')
             # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '598')
             # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '541')
@@ -43,12 +49,12 @@ def main():
             # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1020')
             # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1030')
             # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1040')
-            courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '568')
-            courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '573')
-            courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '541')
-            courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '539')
-            courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '586')
-            courses = myDB.get_courses_by_cids(courseCIDs)
+            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '568')
+            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '573')
+            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '541')
+            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '539')
+            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '586')
+            # courses = myDB.get_courses_by_cids(courseCIDs)
 
         for course in courses:
             result.append(course.generateJSONObj())

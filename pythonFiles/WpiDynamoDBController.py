@@ -12,6 +12,7 @@ from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 from courseInfo import CourseInfo
 
+
 import json, decimal
 # Helper class to convert a DynamoDB item to JSON.
 class DecimalEncoder(json.JSONEncoder):
@@ -354,25 +355,36 @@ class WpiDynamoDBController:
 
         table = self.dynamodb.Table(tableName)
 
-        for term, tfidfs in dicts.items():
-            try:
-                item = {}
-                item['term'] = term
-                # float to decimal # DynamoDB accept only decimal
-                for doc, score in tfidfs.items():
-                    tfidfs[doc] = decimal.Decimal(str(score))
-                item['tfidfs'] = tfidfs
-                
+        with table.batch_writer() as batch:
+            print('items: ', len(dicts))
+            count = 0
+            for term, tfidfs in dicts.items():
+                try:
+                    item = {}
+                    item['term'] = term
+                    # float to decimal # DynamoDB accept only decimal
+                    for doc, score in tfidfs.items():
+                        tfidfs[doc] = decimal.Decimal(str(score))
+                    item['tfidfs'] = tfidfs
+                    
 
-                response = table.put_item(
-                    Item = item
-                )
-            except ClientError as e:
-                print(e.response['Error']['Message'])
-                return False
-            # else:
-            #     print("PutItem succeeded:")
-            #     # print(json.dumps(response, indent=4, cls=DecimalEncoder))
+                    response = batch.put_item(
+                        Item = item
+                    )
+                except ClientError as e:
+                    print(e.response['Error']['Message'])
+                    print('error')
+                    print(term, '------', tfidfs)
+                    for doc, score in tfidfs.items():
+                        tfidfs[doc] = decimal.Decimal(str(score))
+                    print(term, '------', tfidfs)
+                    return False
+                else:
+                    if count == 500:
+                        print("PutItem succeeded: " + str(count))
+                        count = 0
+                    else:
+                        count += 1
         print("insert Table(DescriptionTFIDF) Done...")
 
 
@@ -380,13 +392,13 @@ class WpiDynamoDBController:
     # @Database: DB(DescriptionTFIDF)
     # @input:    word              (ex:) 'machine'
     # @output:   dict{'cid':score} (ex:) {'docID1': 0.12, 'docID3':0.44, 'docID2':0.31, ...}
-    def get_tfidf_by_word(self, word):
+    def get_tfidf_by_word(self, term):
         result = {}
 
         tableName = self.__TabelName_Description_Word_TFIDF__
         table = self.dynamodb.Table(tableName)
         
-        response = table.query(KeyConditionExpression=Key('term').eq(word))
+        response = table.query(KeyConditionExpression=Key('term').eq(term))
         for item in response['Items']:
             # print(json.dumps(item, cls=DecimalEncoder))
 
@@ -420,22 +432,29 @@ class WpiDynamoDBController:
             return
 
         table = self.dynamodb.Table(tableName)
+        
+        with table.batch_writer() as batch:
 
-        for term, docs in dicts.items():
-            try:
-                item = {}
-                item['term'] = term
-                item['docs'] = docs
+            print('items: ', len(dicts))
+            count = 0
+            for term, docs in dicts.items():
+                try:
+                    item = {}
+                    item['term'] = term
+                    item['docs'] = docs
 
-                response = table.put_item(
-                    Item = item
-                )
-            except ClientError as e:
-                print(e.response['Error']['Message'])
-                return False
-            # else:
-            #     print("PutItem succeeded:")
-            #     # print(json.dumps(response, indent=4, cls=DecimalEncoder))
+                    response = batch.put_item(
+                        Item = item
+                    )
+                except ClientError as e:
+                    print(e.response['Error']['Message'])
+                    print(term, '------', docs)
+                else:
+                    if count == 500:
+                        print("PutItem succeeded: " + str(count))
+                        count = 0
+                    else:
+                        count += 1
         print("insert Table(TitleInvertedIndex) Done...")
     
     # @Func:    Given a word, retrieve corresponding document ids that containing the word in Title Database
@@ -478,29 +497,50 @@ class WpiDynamoDBController:
 
         table = self.dynamodb.Table(tableName)
 
-        for biWord, docs in dicts.items():
-            try:
-                item = {}
-                item['term'] = biWord
-                item['docs'] = docs
+        with table.batch_writer() as batch:
+            print('items: ', len(dicts))
+            count = 0
+            for biWord, docs in dicts.items():
+                try:
+                    term = ''
+                    for index, word in enumerate(biWord):
+                        if index == 0:
+                            term += word
+                        else:
+                            term += ' ' + word
+                    # biword = ('A','B') ---> term = 'A B'
+                    item = {}
+                    item['term'] = term
+                    item['docs'] = docs
 
-                response = table.put_item(
-                    Item = item
-                )
-            except ClientError as e:
-                print(e.response['Error']['Message'])
-                return False
-            # else:
-            #     print("PutItem succeeded:")
-            #     # print(json.dumps(response, indent=4, cls=DecimalEncoder))
+                    response = table.put_item(
+                        Item = item
+                    )
+                except ClientError as e:
+                    print(e.response['Error']['Message'])
+                    print(biWord, '------', docs)
+                    return False
+                else:
+                    if count == 500:
+                        print("PutItem succeeded: " + str(count))
+                        count = 0
+                    else:
+                        count += 1
         print("insert Table(BiwordInvertedIndex) Done...")
     
     # @Func:    Given 2 words, retrieve corresponding document ids that containing the word in Bi-word Database
     # @Database: DB(BiwordInvertedIndex)
     # @input:   wordA, wordB    (ex:) 'machine', 'learning'
     # @output:  array['cid']    (ex:) ['docID1', 'docID2', 'docID3']
-    def get_idList_by_biwords(self, wordA, wordB):
-        term = wordA + ' ' + wordB
+    def get_idList_by_biwords(self, biWord):
+
+        term = ''
+        for index, word in enumerate(biWord):
+            if index == 0:
+                term += word
+            else:
+                term += ' ' + word
+        # biword = ('A','B') ---> term = 'A B'
         result = []
 
         tableName = self.__TabelName_BiWord_InvertedIndex__
@@ -519,7 +559,7 @@ class WpiDynamoDBController:
         return result
 
 
-myDB = WpiDynamoDBController()
+# myDB = WpiDynamoDBController()
 # courseDatabase = myDB.get_courses_all()
 # count = 1
 # for course in courseDatabase:
