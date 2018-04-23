@@ -6,7 +6,7 @@ from WpiDynamoDBController import WpiDynamoDBController
 def main():
 
     data = json.loads(sys.argv[1]) # string to json
-    # data = {'func': 'search_courses', 'query': 'machine'}
+    # data = {'func': 'search_courses', 'query': 'machine learning'}
 
     # with open('tmp_data.txt', 'w') as outfile:
     #     # json.dump(data, outfile)
@@ -26,21 +26,21 @@ def main():
 
         if courseCIDs:
             courses = myDB.get_courses_by_cids(courseCIDs)
-        # else:
-            # courseCIDs = myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '501')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '598')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '541')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '502')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1010')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1020')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1030')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1040')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '568')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '573')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '541')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '539')
-            # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '586')
-            # courses = myDB.get_courses_by_cids(courseCIDs)
+        # # else:
+        #     # courseCIDs = myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '501')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '598')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '541')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'DATA SCIENCE', '502')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1010')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1020')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1030')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'CHEMISTRY', '1040')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '568')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '573')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '541')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '539')
+        #     # courseCIDs += myDB.get_CIDs_by_partialInfo('Spring 2019', 'COMPUTER SCIENCE', '586')
+        #     # courses = myDB.get_courses_by_cids(courseCIDs)
 
         for course in courses:
             result.append(course.generateJSONObj())
@@ -48,8 +48,8 @@ def main():
     else:
         result = []
 
-    jsonFormat = json.dumps(result) # json to string
-    print(jsonFormat)
+    # jsonFormat = json.dumps(result) # json to string
+    # print(jsonFormat)
 
 #start process
 if __name__ == '__main__':

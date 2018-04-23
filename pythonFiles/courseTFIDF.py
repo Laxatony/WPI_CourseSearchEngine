@@ -134,6 +134,7 @@ class TFIDF:
             for i in first_priority[1:]:
                 temp=temp.intersection(set(i))
             first_priority=list(temp)
+            first_priority.sort()
             # print('first_priority')
             # print(first_priority)
 
@@ -146,19 +147,22 @@ class TFIDF:
             temp=set(second_priority[0])
             for i in second_priority[1:]:
                 temp=temp.union(set(i))
-            second_priority=list(temp)
+            second_priority1=list(temp)
+            second_priority1.sort()
             # print('second_priority')
-            # print(second_priority)
+            # print(second_priority1)
 
             # super pripority , get intersection
             super=set(second_priority[0])
             for i in second_priority[1:]:
                 super=super.intersection(set(i))
             super = list(super)
+            super.sort()
             if super:
                 for i in super[::-1]:
                     first_priority.insert(0,i)
-            # print('first_priority')
+                
+            # print('super')
             # print(first_priority)
 
             # third_priority: return the highest 5 tf-idf
@@ -175,9 +179,9 @@ class TFIDF:
             third_result=sorted(third_priority.items(), key=lambda item:item[1], reverse=True)[0:5]
             third=[i[0] for i in third_result]
             # print('third_priority')
-            # print(third_priority)
+            # print(third)
 
-            first_priority.extend(second_priority)
+            first_priority.extend(second_priority1)
             first_priority.extend(third)
             result=list(set(first_priority))
             result.sort(key=first_priority.index)
