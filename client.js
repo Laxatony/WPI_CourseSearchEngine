@@ -97,6 +97,34 @@ function show_description(cid) {
     stringBuf += "</strong>"
     stringBuf += "</p>"
 
+    //Insert informations
+    stringBuf += "<table id='course_details' border='1'>"
+
+    stringBuf += "<tr>"
+    stringBuf += "<td>Term</td><td>CRN</td><td>Subject</td><td>Course</td>"
+    stringBuf += "<td>Section</td><td>Campus</td><td>Days</td><td>Time</td><td>Capacity</td>"
+    stringBuf += "<td>Registerd</td><td>Remaining</td><td>Instructor</td><td>Date</td><td>Location</td>"
+    stringBuf += "</tr>"
+
+    stringBuf += "<tr>"
+    stringBuf += "<td>" + course['term'] + "</td>"
+    stringBuf += "<td>" + course['reference'] + "</td>"
+    stringBuf += "<td>" + course['subject'] + "</td>"
+    stringBuf += "<td>" + course['course_index'] + "</td>"
+    stringBuf += "<td>" + course['section'] + "</td>"
+    stringBuf += "<td>" + course['campus'] + "</td>"
+    stringBuf += "<td>" + course['days'] + "</td>"
+    stringBuf += "<td>" + course['time'] + "</td>"
+    stringBuf += "<td>" + course['capacity'] + "</td>"
+    stringBuf += "<td>" + course['registered'] + "</td>"
+    stringBuf += "<td>" + course['remaining'] + "</td>"
+    stringBuf += "<td>" + course['instructor'] + "</td>"
+    stringBuf += "<td>" + course['date'] + "</td>"
+    stringBuf += "<td>" + course['location'] + "</td>"
+    stringBuf += "</tr>"
+
+    stringBuf += "</table>"
+
     stringBuf += "<p>";
     stringBuf += course['description'];
     stringBuf += "</p>"
