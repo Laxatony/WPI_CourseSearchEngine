@@ -57,9 +57,10 @@ function update_courseList() {
         stringBuf += course['title']
         stringBuf += "<br>"
         stringBuf += '____________________<br>'
-        stringBuf += 'Term: ' + course['term'] + '<br>'
+        stringBuf += 'Term: ' + course['term'] + ',  '
+        stringBuf += 'CRN: ' + course['reference'] + '<br>'
         stringBuf += 'Subject: ' + course['subject'] + '<br>'
-        stringBuf += 'Index: ' + course['course_index'] + '<br>'
+        stringBuf += 'Index: ' + course['course_index']
         element.innerHTML = stringBuf
         
         //Binding description

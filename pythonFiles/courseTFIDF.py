@@ -104,6 +104,9 @@ class TFIDF:
         # print(cids)
         return self._myDB.get_idList_by_biwords(word_comb)
 
+    def _getcoursesbycids(self,cids):
+        return self._myDB.get_courses_by_cids(cids)
+
     # Given a text and its related docIDs, return a ranked docID list
     # Input:
     #   a query text string
@@ -138,6 +141,15 @@ class TFIDF:
             # print('first_priority')
             # print(first_priority)
 
+            # Sort by length for first priority
+            tempSort = {}
+            courses = self._getcoursesbycids(first_priority)
+            for course in courses:
+                title = course.title
+                cid = course.cid
+                tempSort[cid] = title
+            first_priority = sorted(tempSort, key=lambda k: len(tempSort[k]), reverse=True)
+            
             # second_priority: if the consecutive query is in the course description
             second_priority=[]
             # temp_query=[('a', 'b'), ('b', 'c'), ('c', 'd')] while query=['a','b','c']
