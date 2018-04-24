@@ -1,55 +1,274 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body{background: rgb(231, 233, 94); color: rgb(0, 0, 0); padding: 10px;}
-        .search_area {
-            width: calc(100%-20px);
-            height: 60px;
-            background-color: rgb(196, 199, 245);
-            color: rgb(0, 0, 0);
-            padding: 5px;}
-        .course_list {
-            width: 250px;
-            height: calc(100vh - 60px);
-            float: left;
-            background-color: rgb(209, 243, 193);
-            padding: 5px;
-            overflow-y:scroll;}
-        .course_description {
-            width: calc(100% - 270px);
-            height: calc(100vh - 60px);
-            margin-left: 210px;
-            background-color: rgb(255, 255, 255);
-            color: rgb(105, 17, 17);
-            padding: 5px;
-            overflow-y:scroll;}
-        .course_bref {
-            height:153px;
-            margin-bottom: 5px;
-            background-color: rgb(248, 248, 248);
-            color: rgb(12, 12, 15);
-            font-size: small;
-            border: 1px solid rgb(78, 66, 66);
-            word-wrap: break-word;
-            cursor: pointer;}
-    
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>WPI Courses Finder</title>
-</head>
-<body>
-        <p style="font-size:200%" align='center'> WPI Courses Finder <p>
-        <div class="search_area">
-            Search: <input id="queryBox" size="49"><br><br>
-            <button onclick="search_courses()">Search Courses</button>
-        </div>
-        <div id="course_list" class="course_list">
-            <p style="color:black;">course list</p>
-        </div>
-        <div id="course_description" class="course_description">
-            <p style="color:black;">course Description</p>
-        </div>
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>WPI Course Search System</title>
 
-        <script src="client.js"></script>
-</body>
+		<!-- Font -->
+		<!-- Font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Roboto+Slab:300,400,700" rel="stylesheet">
+
+		<!-- Css Plugin -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/themify-icons.css">
+		<link rel="stylesheet" href="css/owl.carousel.css">
+		<link rel="stylesheet" href="css/owl.theme.css">
+		<link rel="stylesheet" href="css/owl.transitions.css">
+		<link rel="stylesheet" href="css/slick.css">
+		<link rel="stylesheet" href="css/slider-pro.min.css">
+		<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+		<link rel="stylesheet" href="css/animate.css">
+		<link rel="stylesheet" href="style.css">
+
+		<!-- View Responsive -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			.side-left-image{
+				position: absolute;
+				bottom: -866px;
+				left: -50px;
+				height: 888px;
+				width: 130px;
+			}
+			.side-right-image{
+				position: absolute;
+				bottom: -866px;
+				right: -50px;
+				height: 888px;
+				width: 130px;
+			}
+		</style>
+
+
+	</head>
+	<body>
+		<div id="main-container">
+			<img class="side-left-image" src="img/background/12.jpg" alt="">
+			<img class="side-right-image" src="img/background/12.jpg" alt="">
+			<header class="kopa-header-01">
+				<div class="container">
+					<i class="side-image"></i>
+					<div class="top-header">
+						<div class="kopa-login">
+							<a href="#">
+								<i class="fa fa-sign-in"></i>
+								login
+							</a>
+						</div>
+						<div class="kopa-register">
+							<a href="#">
+								<i class="fa fa-unlock"></i>
+								register
+							</a>
+						</div>
+						<ul>
+							<li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-skype"></i></a></li>
+						</ul>
+					</div>
+					<div class="bottom-header style-01">
+						<div class="clearfix">
+							<div class="pull-left">
+								<h1 class="kopa-logo">
+									<a href="#">
+										<img src="img/icon/1.png" height="42" width="200" />
+									</a>
+								</h1>
+							</div>
+							<div class="pull-right">
+								<nav class="kopa-main-menu style-01">
+									<ul>
+										<li><a href="index.html">Home</a></li>
+										<li><a href="about.html">About</a></li>
+										<li><a href="blog.html">Blog</a></li>
+										<li><a href="single-blog.html">Feedback</a></li>
+										<li><a href="single-shop.html">Contact us</a></li>
+									</ul>
+								</nav>
+								<div class="kopa-search">
+									<button type="button">
+										<i class="fa fa-search"></i>
+									</button>
+									<input type="text" placeholder="Search..." class="">
+								</div>
+								<div class="kopa-hamburger-menu">
+									<i class="fa fa-bars"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<div id="main-content">
+				<section class="kopa-area-nospace">
+					<div class="widget kopa-widget-slider">
+						<div class="widget-content module-slider-01">
+							<div class="container">
+								<img src="images/main-slider/1.png" alt="">
+								<div class="content">
+									<h2>WPI COURSES FINDER</h2><br>
+									<font size="5px"> Don't know which course to register?<br>
+																						<br>
+									<font size="5px"> Couldn't find the target course?<br>
+																						<br>
+									<font size="5px"> Why not try WPI course finder?<br>
+																						<br>
+									<font size="5px"> One step from your deseried course!!!<br></font>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="kopa-area-nospace">
+					<div class="container">
+						<div class="widget kopa-widget-advanced_search">
+							<div class="widget-content module-advanced_search-01">
+								<div class="custom-bg-0"></div>
+								<div class="custom-bg">
+									<form>
+										<p><input id="queryBox" type="text" placeholder="Keywords..."></p>
+										<p><button type="button" onclick="search_courses()" class="button-01">Search Course</button></p>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<div id="main-content">
+					<section class="kopa-area-nospace">
+						<div class="container">
+							<div class="widget kopa-widget-slider">
+								<style>
+							        .course_list {
+							            width: 250px;
+							            height: calc(100vh - 60px);
+							            float: left;
+							            padding: 5px;
+							            overflow-y:scroll;}
+							        .course_description {
+							            width: calc(100% - 270px);
+							            height: calc(100vh - 60px);
+							            margin-left: 210px;
+							            padding: 5px;
+							            overflow-y:scroll;}
+							        .course_bref {
+							            height:130px;
+							            margin-bottom: 5px;
+							            font-size: small;
+							            border: 1px solid rgb(78, 66, 66);
+							            word-wrap: break-word;
+							            cursor: pointer;}
+									table, th, td {
+										border: 1px solid black;
+										text-align: center;
+									}
+							    </style>
+							    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+							    <title>WPI Course Search System</title>
+
+							        </div>
+							        <div id="course_list" class="course_list">
+							           <h3 class="widget-title">Course List</h3>
+							        </div>
+							        <div id="course_description" class="course_description">
+										<h3 class="widget-title">Course Description</h3>
+							        </div>
+							</div>
+						</div>
+					</section>
+					<section class="kopa-area kopa-area-01">
+
+
+						<div class="container">
+							<div class="widget kopa-widget-features">
+								<header class="widget-header style-01">
+									<img src="img/icon/icon-header-1.png" alt="">
+									<h3 class="widget-title">AwESOME Features</h3>
+									<h4>We offer Students for better Learning</h4>
+								</header>
+								<div class="widget-content module-features-01">
+									<div class="row">
+										<div class="col-md-3 col-sm-6 col-xs-12">
+											<article class="entry-item">
+												<div class="custom">
+													<div class="entry-thumb">
+														<img src="img/icon/2.png" alt="">
+													</div>
+													<div class="entry-content">
+														<h4 class="entry-title">
+															<a href="#">Awesome Courses</a>
+														</h4>
+														<p>Thousands of courses for you to register</p>
+														<a href="#" class="button-01">view detail</a>
+													</div>
+												</div>
+											</article>
+										</div>
+										<div class="col-md-3 col-sm-6 col-xs-12">
+											<article class="entry-item">
+												<div class="entry-thumb">
+													<img src="img/icon/3.png" alt="">
+												</div>
+												<div class="entry-content">
+													<h4 class="entry-title">
+														<a href="#">Experienced Teachers</a>
+													</h4>
+													<p>Find the most popular and experienced teachers</p>
+													<a href="#" class="button-01">view detail</a>
+												</div>
+											</article>
+										</div>
+										<div class="col-md-3 col-sm-6 col-xs-12">
+											<article class="entry-item">
+												<div class="entry-thumb">
+													<img src="img/icon/4.png" alt="">
+												</div>
+												<div class="entry-content">
+													<h4 class="entry-title">
+														<a href="#">Practical Classes</a>
+													</h4>
+													<p>Explore the most pratical courses</p>
+													<a href="#" class="button-01">view detail</a>
+												</div>
+											</article>
+										</div>
+										<div class="col-md-3 col-sm-6 col-xs-12">
+											<article class="entry-item">
+												<div class="entry-thumb">
+													<img src="img/icon/5.png" alt="">
+												</div>
+												<div class="entry-content">
+													<h4 class="entry-title">
+														<a href="#">Validate Certificate</a>
+													</h4>
+													<p>Choose a program to certify your programming skills</p>
+													<a href="#" class="button-01">view detail</a>
+												</div>
+											</article>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+		<script src="client.js"></script>
+		<script src="js/jquery-2.2.4.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/jquery.sliderPro.min.js"></script>
+		<script src="js/imagesloaded.pkgd.min.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/owl.carousel.min.js"></script>
+		<script src="js/jquery.waypoints.min.js"></script>
+		<script src="js/jquery.counterup.min.js"></script>
+		<script src="js/jquery.mCustomScrollbar.js"></script>
+		<script src="js/viewportchecker.min.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+</html>
