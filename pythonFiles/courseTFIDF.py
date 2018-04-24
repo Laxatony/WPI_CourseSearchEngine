@@ -119,6 +119,15 @@ class TFIDF:
             #first_priority: if query is in the course title
             first_priority=[]
             first_priority.extend(self._gettitle(query[0]))
+            # Sort by length for first priority
+            tempSort = {}
+            courses = self._getcoursesbycids(first_priority)
+            for course in courses:
+                title = course.title
+                cid = course.cid
+                tempSort[cid] = title
+            first_priority = sorted(tempSort, key=lambda k: len(tempSort[k]), reverse=False)
+
             # third return top 5 tfidf score doc
             third_priority=[]
             arr=self._gettfidf(query[0])
@@ -148,7 +157,7 @@ class TFIDF:
                 title = course.title
                 cid = course.cid
                 tempSort[cid] = title
-            first_priority = sorted(tempSort, key=lambda k: len(tempSort[k]), reverse=True)
+            first_priority = sorted(tempSort, key=lambda k: len(tempSort[k]), reverse=False)
             # print(first_priority)
             
 
@@ -162,19 +171,19 @@ class TFIDF:
             for i in second_priority[1:]:
                 temp=temp.union(set(i))
             second_priority1=list(temp)
-            second_priority1.sort()
             # print('second_priority')
             # print(second_priority1)
 
             # super pripority , get intersection
-            super=set(second_priority[0])
-            for i in second_priority[1:]:
-                super=super.intersection(set(i))
-            super = list(super)
-            super.sort()
-            if super:
-                for i in super[::-1]:
-                    first_priority.insert(0,i)
+            if len(query)>2:
+                super=set(second_priority[0])
+                for i in second_priority[1:]:
+                    super=super.intersection(set(i))
+                super = list(super)
+                super.sort()
+                if super:
+                    for i in super[::-1]:
+                        second_priority1.insert(0,i)
 
             # print('super')
             # print(first_priority)

@@ -6,7 +6,7 @@ from WpiDynamoDBController import WpiDynamoDBController
 def main():
 
     data = json.loads(sys.argv[1]) # string to json
-    # data = {'func': 'search_courses', 'query': 'machine learning'}
+    # data = {'func': 'search_courses', 'query': 'statistical data science'}
 
     # with open('tmp_data.txt', 'w') as outfile:
     #     # json.dump(data, outfile)

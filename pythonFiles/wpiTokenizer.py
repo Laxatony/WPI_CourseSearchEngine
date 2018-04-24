@@ -11,6 +11,7 @@
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+from autocorrect import spell
 import string
 import re
 
@@ -23,6 +24,9 @@ class Tokenizer:
         # 1.remove stop word and turn into lower case
         stop = stopwords.words('english') + list(string.punctuation)
         tokens = [i for i in word_tokenize(text.lower()) if i not in stop]
+
+        for index, token in enumerate(tokens):
+            tokens[index] = spell(token)
 
         # 2.for tokens like "'s", maybe remove "'" -> maybe keep only a-zA-Z0-9
         tokens_ = []

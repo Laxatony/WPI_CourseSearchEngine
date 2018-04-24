@@ -1,7 +1,6 @@
 //Global Variables
 var gCourses = [];
 
-// var connection = new WebSocket('ws://ec2-52-23-176-195.compute-1.amazonaws.com:1111');
 var connection = new WebSocket('ws://localhost:1111');
 connection.onopen = function () {};
 
@@ -24,6 +23,7 @@ connection.onmessage = function (e) {
 
 // Send query to Server
 function search_courses() {
+	clean_all_display();
     var text = document.getElementById('queryBox').value;
     var data = {
         func: 'search_courses',
@@ -38,8 +38,6 @@ function clean_all_display() {
 }
 
 function update_courseList() {
-
-    clean_all_display();
 
     if(gCourses.length == 0) {
         document.getElementById("course_list").innerHTML = "No Result";
@@ -110,6 +108,7 @@ function show_description(cid) {
     stringBuf += "</p>"
 
     //Insert informations
+	stringBuf += "<font size='2'>"
     stringBuf += "<table id='course_details' border='1'>"
 
     stringBuf += "<tr>"
@@ -136,12 +135,28 @@ function show_description(cid) {
     stringBuf += "</tr>"
 
     stringBuf += "</table>"
+	stringBuf += "</font>"
 
     stringBuf += "<br>";
+	
+	stringBuf += "<font size='2'>"
     stringBuf += "<p>";
     stringBuf += course['description'];
     stringBuf += "</p>"
+	stringBuf += "</font>"
 
 
     targetDIV.innerHTML = stringBuf;
 }
+
+// Support search with pressing [Enter] key
+function inputKeyPress(e) {
+    e=e||window.event;
+    var key = e.keyCode;
+    if(key==13) //Enter
+    {
+        document.getElementById("queryBox").blur();
+        search_courses();
+        return false; //return true to submit, false to do nothing
+    }
+  }

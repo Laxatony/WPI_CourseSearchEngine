@@ -28,15 +28,15 @@
 				position: absolute;
 				bottom: -866px;
 				left: -50px;
-				height: 888px;
-				width: 130px;
+				height: 705px;
+				width: 0px;
 			}
 			.side-right-image{
 				position: absolute;
 				bottom: -866px;
 				right: -50px;
-				height: 888px;
-				width: 130px;
+				height: 705px;
+				width: 0px;
 			}
 		</style>
 
@@ -83,7 +83,7 @@
 								<nav class="kopa-main-menu style-01">
 									<ul>
 										<li><a href="index.html">Home</a></li>
-										<li><a href="about.html">About</a></li>
+										<li><a href="about.html">About Us</a></li>
 										<li><a href="blog.html">Blog</a></li>
 										<li><a href="single-blog.html">Feedback</a></li>
 										<li><a href="single-shop.html">Contact us</a></li>
@@ -117,7 +117,7 @@
 																						<br>
 									<font size="5px"> Why not try WPI course finder?<br>
 																						<br>
-									<font size="5px"> One step from your deseried course!!!<br></font>
+									<font size="5px"> One step from your desired course!!!<br></font>
 
 								</div>
 							</div>
@@ -131,8 +131,8 @@
 								<div class="custom-bg-0"></div>
 								<div class="custom-bg">
 									<form>
-										<p><input id="queryBox" type="text" placeholder="Keywords..."></p>
-										<p><button type="button" onclick="search_courses()" class="button-01">Search Course</button></p>
+										<p><input id="queryBox" type="text" onkeypress="return inputKeyPress(event)" placeholder="Keywords..."></p>
+										<p><button id="submitBtn" type="button" onclick="search_courses()" class="button-01">Search Course</button></p>
 									</form>
 								</div>
 							</div>
@@ -145,28 +145,26 @@
 							<div class="widget kopa-widget-slider">
 								<style>
 							        .course_list {
+								    border:1px solid black;
 							            width: 250px;
 							            height: calc(100vh - 60px);
 							            float: left;
 							            padding: 5px;
 							            overflow-y:scroll;}
 							        .course_description {
+								    border:1px solid black;
 							            width: calc(100% - 270px);
 							            height: calc(100vh - 60px);
 							            margin-left: 210px;
 							            padding: 5px;
 							            overflow-y:scroll;}
 							        .course_bref {
-							            height:130px;
+							            height:160px;
 							            margin-bottom: 5px;
 							            font-size: small;
 							            border: 1px solid rgb(78, 66, 66);
 							            word-wrap: break-word;
 							            cursor: pointer;}
-									table, th, td {
-										border: 1px solid black;
-										text-align: center;
-									}
 							    </style>
 							    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 							    <title>WPI Course Search System</title>
@@ -178,6 +176,9 @@
 							        <div id="course_description" class="course_description">
 										<h3 class="widget-title">Course Description</h3>
 							        </div>
+
+									<script src="client.js"></script>
+
 							</div>
 						</div>
 					</section>
@@ -257,7 +258,7 @@
 						</div>
 					</section>
 
-		<script src="client.js"></script>
+
 		<script src="js/jquery-2.2.4.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/slick.min.js"></script>
