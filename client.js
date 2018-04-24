@@ -32,9 +32,21 @@ function search_courses() {
     connection.send(JSON.stringify(data));
 }
 
+function clean_all_display() {
+    document.getElementById("course_list").innerHTML = "";
+    document.getElementById("course_description").innerHTML = "";
+}
+
 function update_courseList() {
 
-    //Get target div and clean it
+    clean_all_display();
+
+    if(gCourses.length == 0) {
+        document.getElementById("course_list").innerHTML = "No Result";
+        document.getElementById("course_description").innerHTML = "No Result";
+        return;
+    }
+
     var targetDIV = document.getElementById("course_list");
     targetDIV.innerHTML = "";
     
@@ -83,8 +95,8 @@ function show_description(cid) {
     }
     var course = gCourses[index];
 
-
     // Show details in DIV: course_description
+    
     //Get target div and clean it
     var targetDIV = document.getElementById("course_description");
     targetDIV.innerHTML = "";
@@ -101,9 +113,9 @@ function show_description(cid) {
     stringBuf += "<table id='course_details' border='1'>"
 
     stringBuf += "<tr>"
-    stringBuf += "<td>Term</td><td>CRN</td><td>Subject</td><td>Course</td>"
-    stringBuf += "<td>Section</td><td>Campus</td><td>Days</td><td>Time</td><td>Capacity</td>"
-    stringBuf += "<td>Registerd</td><td>Remaining</td><td>Instructor</td><td>Date</td><td>Location</td>"
+    stringBuf += "<th>Term</th><th>CRN</th><th>Subject</th><th>Course</th>"
+    stringBuf += "<th>Section</th><th>Campus</th><th>Days</th><th>Time</th><th>Capacity</th>"
+    stringBuf += "<th>Registerd</th><th>Remaining</th><th>Instructor</th><th>Date</th><th>Location</th>"
     stringBuf += "</tr>"
 
     stringBuf += "<tr>"
@@ -125,6 +137,7 @@ function show_description(cid) {
 
     stringBuf += "</table>"
 
+    stringBuf += "<br>";
     stringBuf += "<p>";
     stringBuf += course['description'];
     stringBuf += "</p>"

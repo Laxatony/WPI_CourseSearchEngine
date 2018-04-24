@@ -23,7 +23,7 @@ ws.on('connection', function(w){
                     var data = JSON.parse(results);
                 } catch (e) {
                     console.log('empty result');
-                    return;
+                    data = [];
                 }
 
                 //data = JSON.stringify(data);

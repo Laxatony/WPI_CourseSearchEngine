@@ -149,7 +149,9 @@ class TFIDF:
                 cid = course.cid
                 tempSort[cid] = title
             first_priority = sorted(tempSort, key=lambda k: len(tempSort[k]), reverse=True)
+            # print(first_priority)
             
+
             # second_priority: if the consecutive query is in the course description
             second_priority=[]
             # temp_query=[('a', 'b'), ('b', 'c'), ('c', 'd')] while query=['a','b','c']
@@ -173,11 +175,16 @@ class TFIDF:
             if super:
                 for i in super[::-1]:
                     first_priority.insert(0,i)
-                
+
             # print('super')
             # print(first_priority)
 
-            # third_priority: return the highest 5 tf-idf
+            # temp: intersections
+            temp=set(self._gettfidf(query[0]).keys())
+            for word in query[1:]:
+                temp=temp.intersection(set(self._gettfidf(word).keys()))
+            temp=list(temp)
+            # third_priority: return the highest 10 tf-idf
             third_priority=self._gettfidf(query[0])
             for word in query[1:]:
                 temp_dict=self._gettfidf(word)
@@ -186,15 +193,25 @@ class TFIDF:
                         third_priority[i]+=temp_dict[i]
                     else:
                         third_priority[i]=temp_dict[i]
-            
-            # sort third_priority and return top 5
-            third_result=sorted(third_priority.items(), key=lambda item:item[1], reverse=True)[0:5]
+            # sort third_priority and return top10
+            third_result=sorted(third_priority.items(), key=lambda item:item[1], reverse=True)[0:10]
             third=[i[0] for i in third_result]
+
+            tempdict={}
+            for i in temp:
+                tempdict[i]=third_priority[i]
+            temp1=sorted(tempdict.items(), key=lambda item:item[1], reverse=True)
+            prethird=[i[0] for i in third_result]
+            for i in prethird:
+                third.remove(i)
+            prethird.extend(third)
+
+
             # print('third_priority')
             # print(third)
 
             first_priority.extend(second_priority1)
-            first_priority.extend(third)
+            first_priority.extend(prethird)
             result=list(set(first_priority))
             result.sort(key=first_priority.index)
             return result
