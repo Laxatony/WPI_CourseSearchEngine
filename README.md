@@ -1,7 +1,7 @@
 # Courses Finder
 
 ## Author
-* Yaochun Hsieh (Data Science) &nbsp;&nbsp; yhsieh2@wpi.edu
+* Yaochun Hsieh (Data Science) &nbsp;&nbsp;yhsieh2@wpi.edu
 * Yang Tao (Data Science)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ytao2@wpi.edu
 * Haowen Zhu (Data Science)   &nbsp;&nbsp;&nbsp;&nbsp; hzhu3@wpi.edu
 
