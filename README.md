@@ -33,7 +33,13 @@ The basic information including term, subject, CRN, title, insturctor, remaining
     - [DynamoDB](https://aws.amazon.com/dynamodb/) (Local version is ok with this project)
     
 ## How The WPI Courses Finder works
-Given a query content provided by user, the client javascript will send the query to server using json and websocket, then the server will pass the query to python root file using PythonShell. In backend, the query will be tokenized, stemming and corrected. Then with designed searching methods and structures(invertedIndex, tfidf, cosine-similarity) we build beforehand, relevant courses will be retrieved from database using boto3 and send back to server. Finally, the server will pass the courses data to client using WebSocket ,and the client program can update the courses data on the screen.
+[Building the search engine]
+We crawled and stored all the courses data in dynamoDB. After that, TF-iDF table for course description, inverted index for title and inverted index for bi-word(2 terms combination) are built for course searching.<br> 
+
+[Searching Courses]
+Given a query content provided by user, the client javascript will send the query to server using json and websocket, then the server will pass the query to python root file using PythonShell. In backend, the query will be tokenized, stemming and corrected. Then with designed searching methods and structures(invertedIndex, tfidf, cosine-similarity) we build beforehand, courses relevant to the query will be retrieved from dynamoDB using boto3 and send back to server. Finally, the server will pass the courses data to client using WebSocket ,and the client program can update the courses data on the screen.
+<br>
+![Image of Prototype](https://github.com/Laxatony/WPI_Project_CourseFinder/blob/master/flows.png)
 
     
 ## How To Use
@@ -58,3 +64,10 @@ The courses finder service is a web based application. It consists of client, se
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Now you can open index.html to use the website with your local database.
 
+## Futher Work
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Currently, the system does not support wildcard searching. Also abbreviation such as 'ML' is not recognized as 'Machine Learning'.
+These features can be added to the system, making it more desirable.
+
+
+.
