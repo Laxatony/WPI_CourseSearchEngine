@@ -20,15 +20,15 @@ The basic information including term, subject, CRN, title, insturctor, remaining
     - [PythonShell](https://www.npmjs.com/package/python-shell):  *message exchange between server and python file*
 2. Python Related:
     - automatic course web crawler
-      * [Selenium](http://selenium-python.readthedocs.io/): 
-      * a brawser driver execution (ex: cromedriver.exe)
+        * [Selenium](http://selenium-python.readthedocs.io/): 
+        * a brawser driver execution (ex: cromedriver.exe)
     - access AWS Dynamo database
-      * [boto3](https://boto3.readthedocs.io/en/latest/index.html)
-      * json
-      * decimal
-    - search engine
-      * [nltk](https://www.nltk.org/)
-      * [autocorrect](https://github.com/phatpiglet/autocorrect)
+        * [boto3](https://boto3.readthedocs.io/en/latest/index.html)
+        * json
+        * decimal
+    - search engine
+        * [nltk](https://www.nltk.org/)
+        * [autocorrect](https://github.com/phatpiglet/autocorrect)
 3. DynamoDB
     - [DynamoDB](https://aws.amazon.com/dynamodb/) (Local version is ok with this project)
     
