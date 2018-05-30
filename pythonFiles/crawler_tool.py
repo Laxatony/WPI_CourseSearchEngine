@@ -4,7 +4,7 @@ import re
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from courseInfo import CourseInfo
-from WpiDynamoDBController import WpiDynamoDBController
+# from WpiDynamoDBController import WpiDynamoDBController
 #driver.page_source
 
 class WPI_BannerWeb_Course_Crawler:
@@ -19,7 +19,7 @@ class WPI_BannerWeb_Course_Crawler:
         self._driver.get(login_url)
         self._quarters = []
 
-        self._myDynamoDB = WpiDynamoDBController()
+#         self._myDynamoDB = WpiDynamoDBController()
 
     def _login_page_(self):
         # 1. enter username
@@ -150,7 +150,7 @@ class WPI_BannerWeb_Course_Crawler:
             courseInfo.location = self._driver.find_element_by_xpath('//div[3]/form[1]/table[1]/tbody[1]/tr[3]/td[22]').text
             courseInfo.updateCID()
 
-            self._myDynamoDB.insert_course_item(courseInfo)
+#             self._myDynamoDB.insert_course_item(courseInfo)
             self._totalClasses += 1
             self._maxTestAmount -= 1
             
@@ -159,11 +159,6 @@ class WPI_BannerWeb_Course_Crawler:
         self._mainMenu_page_()
         self._studentServices_page_()
         self._registration_page_()
-
-        # quartersAmount = 3
-        # self._lookupClass_page_(quartersAmount)
-
-        #self._driver.back()
 
     def close(self):
         self._driver.close()
@@ -179,7 +174,7 @@ class WPI_Schedule_Planner_Crawler:
         self._driver.get(login_url)
         self._quarters = []
 
-        self._myDynamoDB = WpiDynamoDBController()
+#         self._myDynamoDB = WpiDynamoDBController()
 
     def _login_page_(self):
         # 1. enter username
@@ -309,13 +304,13 @@ class WPI_Schedule_Planner_Crawler:
                     cids = self._myDynamoDB.get_CIDs_by_partialInfo(term, subject, course_index)
                     for cid in cids:
                         print(cid)
-                    self._myDynamoDB.update_courses_description(cids, description)
+#                     self._myDynamoDB.update_courses_description(cids, description)
                 else:
                     print(term, subject, course_index)
                     cids = self._myDynamoDB.get_CIDs_by_partialInfo(term, subject, course_index)
                     for cid in cids:
                         print(cid)
-                    self._myDynamoDB.update_courses_description(cids, description)
+#                     self._myDynamoDB.update_courses_description(cids, description)
 
         time.sleep(1)
 
@@ -333,86 +328,24 @@ class WPI_Schedule_Planner_Crawler:
     def close(self):
         self._driver.close()
 
-
-# userName = 'yhsieh2'
-# userPwd = 'Laxative334670-1'
-
-# Create Testing Database
-def getExampleDatabase():
-    courses = []
-
-    course1 = CourseInfo()
-    course1.term = 'Spring 2019'
-    course1.subject = 'Data Science'
-    course1.course_index = '585'
-    course1.reference = '20016'
-    course1.description = "Big Data Management is one of the hottest courses in WPI.\nEvery one should take this course instead of Machine Learning."
-    course1.updateCID()
-    courses.append(course1)
-
-    course2 = CourseInfo()
-    course2.term = 'Spring 2019'
-    course2.subject = 'Computer Science'
-    course2.course_index = '500'
-    course2.reference = '21000'
-    course2.description = "Deep Learning is more interesting than Machine Learning.\n It's not pure classification.\n Artificial Intelligence is a wild concept tought by Pro. Gini."
-    course2.updateCID()
-    courses.append(course2)
-
-    course3 = CourseInfo()
-    course3.term = 'Spring 2019'
-    course3.subject = 'Computer Science'
-    course3.course_index = '500'
-    course3.reference = '21001'
-    course3.description = "Data Science(DS)502 is teaching statistical learning.\n We will talk about methods for classification and clustering."
-    course3.updateCID()
-    courses.append(course3)
-
-    return courses
-
 def main(argv):
 
     login_url = "https://bannerweb.wpi.edu/pls/prod/twbkwbis.P_WWWLogin"
     userName = argv[1]
     userPwd = argv[2]
 
+    # BannerWeb
     wpi_crawler = WPI_BannerWeb_Course_Crawler(login_url, userName, userPwd)
     wpi_crawler.automation()
     wpi_crawler.close()
     time.sleep(5)
 
+    # Schedule Planner web
     # wpi_crawler = WPI_Schedule_Planner_Crawler(login_url, userName, userPwd)
     # wpi_crawler.automation()
     # wpi_crawler.close()
 
-    
-    # # Initial Database Connection ##########################
-    # myDynamoDB = WpiDynamoDBController()
-
-    # # Insert course ######################################
-    # courses = getExampleDatabase()
-    # for course in courses:
-    #     myDynamoDB.insert_course_item(course)
-
-    # # Get all courses ####################################
-    # courses = myDynamoDB.get_courses_all()
-    # count = 1
-    # for course in courses:
-    #     print(str(count) + ' ' +  course.cid + ':\n' + course.description + '\n')
-    #     count += 1
-
-    # # Update description #################################
-    # term = 'Spring 2019'
-    # subject = 'Computer Science'
-    # course_index = '500'
-    # courseCIDs = myDynamoDB.get_course_CIDs(term, subject, course_index)
-    # print(courseCIDs)
-    # input("pause")
-    # description = "Updated description..."
-    # myDynamoDB.update_courses_description(courseCIDs, description)
-
-
-    
 if __name__ == "__main__":
     import sys
+    # commanad line> python crawler_tool.py userName userPwd
     main(sys.argv)
